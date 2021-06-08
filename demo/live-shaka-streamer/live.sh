@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 ../../shaka-streamer/shaka-streamer \
     --skip_deps_check \
