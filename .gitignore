@@ -1,0 +1,5 @@
+depot_tools
+shaka-packager
+shaka-streamer
+s3-upload-proxy
+test-content/*
