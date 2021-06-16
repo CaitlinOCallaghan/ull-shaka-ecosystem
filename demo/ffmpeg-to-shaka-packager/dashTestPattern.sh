@@ -3,7 +3,7 @@
 port=8080
 # create a unique directory
 dir=$(date '+%m-%d-%y-%T')
-vid='BBB'
+vid='TestPattern'
 
 rm pipe0
 mkfifo pipe0

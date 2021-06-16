@@ -29,7 +29,7 @@ packager \
    --io_block_size 65536 \
    in=pipe0,stream=video,segment_template='http://0.0.0.0:'${port}'/'${dir}'/'${vid}'_live_video_$Number$.ts' \
    --segment_duration 5 \
-   -hls_playlist_type LIVE \
+   --hls_playlist_type LIVE \
    --hls_master_playlist_output "http://0.0.0.0:${port}/${dir}/playlist.m3u8"
 
 rm pipe0
