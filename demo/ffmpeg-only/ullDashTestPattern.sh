@@ -21,7 +21,7 @@ ffmpeg \
     -g 150 \
     -keyint_min 150 \
     -method PUT \
-    -seg_duration 15 \
+    -seg_duration 5 \
     -streaming 1 \
     -http_persistent 1 \
     -utc_timing_url "https://time.akamai.com/?iso" \
