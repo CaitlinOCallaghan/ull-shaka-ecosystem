@@ -35,3 +35,4 @@ ffmpeg \
     -adaptation_sets "id=0,streams=v id=1,streams=a" \
     -f dash \
     http://0.0.0.0:${port}/${dir}/manifest.mpd
+
