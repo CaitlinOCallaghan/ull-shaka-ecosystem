@@ -33,10 +33,11 @@ git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 export PATH="$PATH:$PWD/depot_tools"
 mkdir shaka-packager
 cd shaka-packager
-# grab the repo containing the HTTP upload branch
+# grab the fork that contains ULL work
 gclient config https://github.com/CaitlinOCallaghan/shaka-packager.git --name=src --unmanaged
-# checkout the HTTP branch
-gclient sync -r 224b9e41822b02bfe99c74cb65c608674f1b369f
+# checkout the main branch
+# NOTE: use "gclinet sync -r {commit_hash}" to checkout a specific commit or branch
+gclient sync
 cd src
 # build shaka packager
 ninja -C out/Release
