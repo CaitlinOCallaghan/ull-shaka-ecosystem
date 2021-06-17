@@ -124,7 +124,7 @@ Through the AWS web console, you can access links for the video manifests and pl
 
 ### AWS Protips
 
-The S3 web console allows users to easily purge the entire bucket with once click. However, MediaStore does not. To empty a MediaStore container through the web console, you must delete files page by page, and you cannot delete a directory until it is empty. If you wish to purge your MediaStore container, please use the following script.
+The S3 web console allows users to easily purge the entire bucket with once click. However, MediaStore does not. To empty a MediaStore container through the web console, you must delete files page by page, and you cannot delete a directory until it is empty. If you wish to purge your MediaStore container in one go, please use the following script.
 
 ```console
 foo@bar:~/ull-shaka-ecosystem/demo/server$ ./emptyMediaStoreContainer.sh
