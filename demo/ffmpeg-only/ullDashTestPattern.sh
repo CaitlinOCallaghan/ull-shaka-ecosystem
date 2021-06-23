@@ -3,7 +3,7 @@
 PORT=8080
 # create a unique directory
 OUTPUT_DIR=$(date '+%m-%d-%y-%T')
-OUTPUT_CHUNK_NAME='test_pattern_live_ull_video'
+OUTPUT_SEG_NAME='test_pattern_live_ull_video'
 
 
 # Encoding settings for x264 (CPU based encoder)
@@ -28,8 +28,8 @@ ffmpeg \
     -utc_timing_url "https://time.akamai.com/?iso" \
     -index_correction 1 \
     -use_timeline 0 \
-    -media_seg_name ''${OUTPUT_CHUNK_NAME}'_$Number$.m4s' \
-    -init_seg_name ''${OUTPUT_CHUNK_NAME}'_init.m4s' \
+    -media_seg_name ''${OUTPUT_SEG_NAME}'_$Number$.m4s' \
+    -init_seg_name ''${OUTPUT_SEG_NAME}'_init.m4s' \
     -window_size 5  \
     -extra_window_size 10 \
     -remove_at_exit 1 \
