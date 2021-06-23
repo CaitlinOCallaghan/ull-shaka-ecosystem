@@ -38,8 +38,7 @@ foo@bar:~$ aws configure
 To ensure that your credentials have been added, checkout your aws directory and peek into the credentials file. 
 
 ```console
-foo@bar:~$ cd ~/.aws
-foo@bar:~/.aws$ cat credentials
+foo@bar:~$ cat ~/.aws/credentials
 [default]
 aws_access_key_id={YOUR KEY ID}
 aws_secret_access_key={YOUR KEY}

@@ -1,17 +1,17 @@
 #!/bin/bash
 
-port=8080
-awsRegion='us-west-2'
-bucketName='shaka_ull'
-cloudStorage='mediastore' # Please select 'mediastore' or 's3'
+PORT=8080
+AWS_REGION='us-west-2'
+BUCKET_NAME='shaka_ull'
+CLOUD_STORAGE='mediastore' # Please select 'mediastore' or 's3'
 
-serverDir=$PWD
-s3UploadProxyDir='../../s3-upload-proxy'
+LAUNCH_SERVER_DIR=$PWD
+SHIM_DIR='../../s3-upload-proxy'
 
-echo "Launching ${cloudStorage} proxy for '${bucketName}' on port ${port}"
+echo "Launching ${CLOUD_STORAGE} proxy for '${BUCKET_NAME}' on port ${PORT}"
 
-export UPLOAD_DRIVER=${cloudStorage} BUCKET_NAME=${bucketName} REGION_NAME=${awsRegion} HTTP_PORT=${port}
-cd ${s3UploadProxyDir}
+export UPLOAD_DRIVER=${CLOUD_STORAGE} BUCKET_NAME=${BUCKET_NAME} REGION_NAME=${AWS_REGION} HTTP_PORT=${PORT}
+cd ${SHIM_DIR}
 go build -o s3-upload-proxy
-cd ${serverDir}
-./${s3UploadProxyDir}/s3-upload-proxy
+cd ${LAUNCH_SERVER_DIR}
+./${SHIM_DIR}/s3-upload-proxy

@@ -2,7 +2,7 @@
 
 # WARNING: This script will completely empty your MediaStore container!
 
-containerName='shaka_ull'
+CONTAINER_NAME='shaka_ull'
 
 VENV='./env'
 if test -d "$VENV"; then
@@ -20,7 +20,7 @@ source ${VENV}/bin/activate
 
 echo "Let the purge commence"
 
-python3 purge_mediastore_container.py ${containerName} /
+python3 purge_mediastore_container.py ${CONTAINER_NAME} /
 
 echo "Purge complete!"
 
