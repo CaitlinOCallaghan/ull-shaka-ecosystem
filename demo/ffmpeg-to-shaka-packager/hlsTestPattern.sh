@@ -1,15 +1,15 @@
 #!/bin/bash
 
-port=8080
+PORT=8080
 # create a unique directory
-dir=$(date '+%m-%d-%y-%T')
-vid='TestPattern'
+OUTPUT_DIR=$(date '+%m-%d-%y-%T')
+OUTPUT_SEG_NAME='test_pattern_live_video'
 
-rm pipe0
+[ -e pipe0 ] && rm pipe0
 mkfifo pipe0
 
 # encode with FFMPEG
-x264enc='libx264 -tune zerolatency -profile:v high -preset ultrafast -bf 0 -refs 3 -sc_threshold 0'
+X264_ENC='libx264 -tune zerolatency -profile:v high -preset ultrafast -bf 0 -refs 3 -sc_threshold 0'
 
 ffmpeg \
     -hide_banner \
@@ -18,7 +18,7 @@ ffmpeg \
     -i "testsrc2=size=1920x1080:rate=30" \
     -pix_fmt yuv420p \
     -map 0:v \
-    -c:v ${x264enc} \
+    -c:v ${X264_ENC} \
     -g 150 \
     -keyint_min 150 \
     -b:v 4000k \
@@ -29,9 +29,9 @@ ffmpeg \
 # package as HLS
 packager \
    --io_block_size 65536 \
-   in=pipe0,stream=video,segment_template='http://0.0.0.0:'${port}'/'${dir}'/'${vid}'_live_video_$Number$.ts' \
+   in=pipe0,stream=video,segment_template='http://0.0.0.0:'${PORT}'/'${OUTPUT_DIR}'/'${OUTPUT_SEG_NAME}'_$Number$.ts' \
    --segment_duration 5 \
    --hls_playlist_type LIVE \
-   --hls_master_playlist_output "http://0.0.0.0:${port}/${dir}/playlist.m3u8"
+   --hls_master_playlist_output "http://0.0.0.0:${PORT}/${OUTPUT_DIR}/playlist.m3u8"
 
 rm pipe0
