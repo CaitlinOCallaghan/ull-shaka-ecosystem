@@ -6,7 +6,7 @@ streaming_mode: live
 # A list of resolutions to encode.
 resolutions:
   - 720p
-  - 480p
+  - 360p
 
 # The number of audio channels to output.
 channels: 2
@@ -14,14 +14,12 @@ channels: 2
 # The codecs to encode with.
 audio_codecs:
   - aac
-  - opus
 video_codecs:
   - h264
 
 # Manifest format (dash, hls, or both)
 manifest_format:
   - dash
-  - hls
 
 # Length of each segment in seconds.
 segment_size: 4

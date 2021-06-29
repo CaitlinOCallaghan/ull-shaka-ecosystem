@@ -2,29 +2,59 @@
 
 ## Installation
 
-NOTE: This tutorial is designed for Ubuntu 20.04.
+This tutorial is designed for Ubuntu 20.04.
+The following scripts will install dependencies in the OS. 
+Please use a virtual machine in VMware, UTM, virtualbox, etc to test.
 
-## General
 
 To set up your environment, clone this repo, cd into the main directory, and run the build script. This script will install all of the needed dependencies.
 
 ```console
-foo@bar:~$ git clone https://github.com/CaitlinOCallaghan/ull-shaka-ecosystem.git
-foo@bar:~$ cd ull-shaka-ecosystem
-foo@bar:~/ull-shaka-ecosystem$ ./buildUbuntu.sh
+git clone https://github.com/CaitlinOCallaghan/ull-shaka-ecosystem.git
+cd ull-shaka-ecosystem
+./buildUbuntu2004.sh
 ```
 
-After the installation, download the provided test content.
+You may now run a test stream with a test pattern by running:
+
 ```console
-foo@bar:~/ull-shaka-ecosystem$ cd test-content
-foo@bar:~/test-content$ ./downloadTestContent.sh
+cd ~/ull-shaka-ecosystem/demo/live-shaka-streamer
+./liveTestPattern.sh
+```
+Your manifest will be available at http://127.0.0.1/testpattern/dash.mpd
+
+You may view this in ffplay, shaka player, dash.js, exoplayer, etc.
+
+For example you could run:
+```console
+ffplay http://127.0.0.1/testpattern/dash.mpd
 ```
 
-With the test content downloaded, you may now run the included demos. This will help verify that your environment is properly setup. For example, run:
+You may also use test video content if you wish. 
+
+To download test content you may run:
+
 ```console
-foo@bar:~/ull-shaka-ecosystem$ cd demos/live-shaka-streamer
-foo@bar:~/live-shaka-streamer$ ./live.sh
+cd ~/ull-shaka-ecosystem/test-content
+./downloadTestContent.sh
 ```
+
+You may now run a test stream with the provided test content by running:
+
+```console
+cd ~/ull-shaka-ecosystem/demo/live-shaka-streamer
+./liveLoopedFile.sh
+```
+Your manifest will be available at http://127.0.0.1/livelooped/dash.mpd
+
+You may view this in ffplay, shaka player, dash.js, exoplayer, etc.
+
+For example you could run:
+```console
+ffplay http://127.0.0.1/livelooped/dash.mpd
+```
+
+While this is a self contained demo, if you would like to use AWS as the server side componet of this project, please read on, otherwise you can stop here.
 
 ## AWS
 
@@ -32,17 +62,20 @@ foo@bar:~/live-shaka-streamer$ ./live.sh
 After the general installation, configure your AWS credentials with awscli. This step is critical for accessing your S3 buckets and MediaStore containers. Follow the command line prompts to enter your Access Key ID and Secret Access Key. For more information and instructions on where to find your AWS keys, you can visit AWS documentation [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html). 
 
 ```console
-foo@bar:~$ aws configure
+aws configure
 ```
 
 To ensure that your credentials have been added, checkout your aws directory and peek into the credentials file. 
 
 ```console
-foo@bar:~$ cat ~/.aws/credentials
+cat ~/.aws/credentials
+```
+It should look like:
+
+```console
 [default]
 aws_access_key_id={YOUR KEY ID}
 aws_secret_access_key={YOUR KEY}
-foo@bar:~/.aws$
 ```
 
 ### Cloud
@@ -113,7 +146,8 @@ With AWS set up, it's time to stream the video!
 Start by launching the proxy on S3 or MediaStore. Ensure that you edit the script to point to your specific bucket or container.
 
 ```console
-foo@bar:~/ull-shaka-ecosystem/demo/server$ ./launchAwsProxy.sh
+cd ~/ull-shaka-ecosystem/demo/server 
+./launchAwsProxy.sh
 ```
 
 You are now ready to stream to AWS via the listening HTTP proxy!
@@ -123,8 +157,13 @@ Through the AWS web console, you can access links for the video manifests and pl
 
 ### AWS Protips
 
+S3 and Mediastore are both origin hosting services.
+S3 is more affordable.
+Mediastore is higher performance for live and low latency live video.
+
 The S3 web console allows users to easily purge the entire bucket with once click. However, MediaStore does not. To empty a MediaStore container through the web console, you must delete files page by page, and you cannot delete a directory until it is empty. If you wish to purge your MediaStore container in one go, please use the following script.
 
 ```console
-foo@bar:~/ull-shaka-ecosystem/demo/server$ ./emptyMediaStoreContainer.sh
+cd ~/ull-shaka-ecosystem/demo/server
+./emptyMediaStoreContainer.sh
 ```
