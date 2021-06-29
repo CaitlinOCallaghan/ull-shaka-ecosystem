@@ -6,8 +6,23 @@ This tutorial is designed for Ubuntu 20.04.
 The following scripts will install dependencies in the OS. 
 Please use a virtual machine in VMware, UTM, virtualbox, etc to test.
 
+You can download Ubuntu 20.04 for free from here (protip: BitTorrent is often faster!):
 
-To set up your environment, clone this repo, cd into the main directory, and run the build script. This script will install all of the needed dependencies.
+https://ubuntu.com/download/desktop
+
+For Macs, you can download UTM to run virtual machines on your Mac, x86 or ARM (this repo is not yet ARM tested, for free here:
+
+https://getutm.app
+
+Install UTM, then open it, and create a new virtual machine.
+
+Import the Ubuntu ISO into UTM as a virtual drive, and, make a 10 gig virtual hard drive to install Ubuntu to. (Protip: During the instalation process select ZFS so you can use snapshots if you want to roll your envrionment back.)
+
+When the instalation is done, shut down the VM, and unmount the virtual drive that is the ISO. 
+
+Now boot the VM and you should be ready to go in Ubuntu 20.04.
+
+To set up your environment, open a terminal and clone this repo, cd into the main directory, and run the build script. This script will install all of the needed dependencies.
 
 ```console
 git clone https://github.com/CaitlinOCallaghan/ull-shaka-ecosystem.git
