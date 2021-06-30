@@ -10,7 +10,7 @@ You can download Ubuntu 20.04 for free from here (protip: BitTorrent is often fa
 
 https://ubuntu.com/download/desktop
 
-For Macs, you can download UTM to run virtual machines on your Mac, x86 or ARM (this repo is not yet ARM tested, for free here:
+For Macs, you can download UTM to run virtual machines on your Mac, x86 or ARM (this repo is not yet ARM tested), for free here:
 
 https://getutm.app
 
