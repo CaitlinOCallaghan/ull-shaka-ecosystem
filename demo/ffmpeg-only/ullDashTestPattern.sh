@@ -8,7 +8,7 @@ OUTPUT_SEG_NAME='test_pattern_live_ull_video'
 
 # Encoding settings for x264 (CPU based encoder)
 
-X264_ENC='libx264 -tune zerolatency -profile:v high -preset veryfast -bf 0 -refs 3 -sc_threshold 0'
+X264_ENC='libx264 -tune zerolatency -profile:v high -preset baseline -bf 0 -refs 1 -sc_threshold 0'
 
 ffmpeg \
     -hide_banner \
