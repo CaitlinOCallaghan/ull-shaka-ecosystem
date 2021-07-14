@@ -182,3 +182,7 @@ The S3 web console allows users to easily purge the entire bucket with once clic
 cd ~/ull-shaka-ecosystem/demo/server
 ./emptyMediaStoreContainer.sh
 ```
+
+### Docker version
+
+ull-shaka-ecosystem can also run from Docker container, run ./buildDocker.sh this will result in a bash prompt to run the above

@@ -1,5 +1,5 @@
 FROM ubuntu:20.04 as shaka_ubuntu2004_baseline
-MAINTAINER kevleyski
+LABEL org.opencontainers.image.authors="kevleyski"
 
 # Pull in build cross compiler tool dependencies using Advanced Package Tool
 ARG DEBIAN_FRONTEND=noninteractive
@@ -10,7 +10,7 @@ RUN set -x \
                                             libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \
                                             libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev gettext tcl libssl-dev cmake mercurial unzip git \
                                             libdrm-dev valgrind libpciaccess-dev libxslt1-dev geoip-bin libgeoip-dev zlib1g-dev libpcre3 libpcre3-dev \
-                                            libbz2-dev ca-certificates libssl-dev nasm v4l-utils libv4l-dev gtk2.0
+                                            libbz2-dev ca-certificates libssl-dev nasm v4l-utils libv4l-dev gtk2.0 snapd
 
 RUN set -x \
     && DEBIAN_FRONTEND=noninteractive apt-get -y install \
@@ -37,14 +37,19 @@ RUN set -x \
       golang-go \
       curl
 
-COPY . shaka
+WORKDIR /ull-shaka-ecosystem
+
+COPY ./demo /ull-shaka-ecosystem/demo
+COPY ./test-content /ull-shaka-ecosystem/test-content
 
 FROM shaka_ubuntu2004_baseline AS shaka_baseline_ecosystem
 
-# ImageMagic (v6 - note _not_ v7)
+# Google Depot Tools
 RUN set -x \
+    && mkdir -p /var/www/ \
     && chown -R "$USER" /var/www/ \
-    && sudo chmod 755 -R /var/www/
+    && chmod 755 -R /var/www/ \
+    && if [ ! -d "depot_tools" ]; then git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git depot_tools; fi
 
 # Shaka Packager with HTTP upload
 # Grab shaka-packager fork  the fork that contains ULL work
@@ -53,16 +58,17 @@ RUN set -x \
 # Build shaka-packager
 # Save the binary file to local bin for global use
 RUN set -x \
-    && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git \
-    && export PATH="$PATH:$PWD/depot_tools" \
-    && mkdir shaka-packager \
-    && cd shaka-packager \
+    && export PATH="$PATH:/ull-shaka-ecosystem/depot_tools" \
+    && mkdir -p /ull-shaka-ecosystem/shaka-packager \
+    && cd /ull-shaka-ecosystem/shaka-packager \
     && gclient config https://github.com/CaitlinOCallaghan/shaka-packager.git --name=src --unmanaged \
-    && gclient sync \
-    && cd src \
+    && gclient sync
+
+RUN set -x \
+    && cd /ull-shaka-ecosystem/shaka-packager/src \
     && ninja -C out/Release \
     && ./out/Release/packager --version \
-    && sudo install -m 755 ./out/Release/packager  /usr/local/bin/packager \
+    && install -m 755 ./out/Release/packager /usr/local/bin/packager
 
 # Clone Shaka Streamer
 # Install google-cloud-sdk
@@ -70,7 +76,7 @@ RUN set -x \
 # Checkout working commit - main does not work for mediastore
 RUN set -x \
     && git clone https://github.com/CaitlinOCallaghan/shaka-streamer.git \
-    && sudo snap install google-cloud-sdk --classic \
+    && curl https://dl.google.com/dl/cloudsdk/release/install_google_cloud_sdk.bash | bash \
     && git clone https://github.com/fsouza/s3-upload-proxy.git \
-    && cd s3-upload-proxy \
+    && cd /ull-shaka-ecosystem/s3-upload-proxy \
     && git checkout 793d1164921d6e42b4bec26686e76001995f218b
