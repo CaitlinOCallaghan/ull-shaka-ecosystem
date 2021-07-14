@@ -5,6 +5,8 @@ LABEL org.opencontainers.image.authors="kevleyski"
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 
+EXPOSE 80
+
 RUN set -x \
     && DEBIAN_FRONTEND=noninteractive apt-get -y install wget curl autoconf automake build-essential libass-dev libfreetype6-dev \
                                             libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \
@@ -37,10 +39,10 @@ RUN set -x \
       golang-go \
       curl
 
-WORKDIR /ull-shaka-ecosystem
+WORKDIR /root/ull-shaka-ecosystem
 
-COPY ./demo /ull-shaka-ecosystem/demo
-COPY ./test-content /ull-shaka-ecosystem/test-content
+COPY ./demo /root/ull-shaka-ecosystem/demo
+COPY ./test-content /root/ull-shaka-ecosystem/test-content
 
 FROM shaka_ubuntu2004_baseline AS shaka_baseline_ecosystem
 
@@ -58,14 +60,14 @@ RUN set -x \
 # Build shaka-packager
 # Save the binary file to local bin for global use
 RUN set -x \
-    && export PATH="$PATH:/ull-shaka-ecosystem/depot_tools" \
-    && mkdir -p /ull-shaka-ecosystem/shaka-packager \
-    && cd /ull-shaka-ecosystem/shaka-packager \
+    && export PATH="$PATH:/root/ull-shaka-ecosystem/depot_tools" \
+    && mkdir -p /root/ull-shaka-ecosystem/shaka-packager \
+    && cd /root/ull-shaka-ecosystem/shaka-packager \
     && gclient config https://github.com/CaitlinOCallaghan/shaka-packager.git --name=src --unmanaged \
     && gclient sync
 
 RUN set -x \
-    && cd /ull-shaka-ecosystem/shaka-packager/src \
+    && cd /root/ull-shaka-ecosystem/shaka-packager/src \
     && ninja -C out/Release \
     && ./out/Release/packager --version \
     && install -m 755 ./out/Release/packager /usr/local/bin/packager
@@ -78,5 +80,5 @@ RUN set -x \
     && git clone https://github.com/CaitlinOCallaghan/shaka-streamer.git \
     && curl https://dl.google.com/dl/cloudsdk/release/install_google_cloud_sdk.bash | bash \
     && git clone https://github.com/fsouza/s3-upload-proxy.git \
-    && cd /ull-shaka-ecosystem/s3-upload-proxy \
+    && cd /root/ull-shaka-ecosystem/s3-upload-proxy \
     && git checkout 793d1164921d6e42b4bec26686e76001995f218b
