@@ -4,6 +4,8 @@
 PORT=80
 
 HERE=$PWD
+cd $HERE/.. || exit 1
+cp aarch64/Dockerfile .
 
 IMAGE_STATE=$(docker images -q shaka_builder_arm:latest 2> /dev/null)
 
