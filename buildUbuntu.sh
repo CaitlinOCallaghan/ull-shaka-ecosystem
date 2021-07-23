@@ -34,7 +34,7 @@ export PATH="$PATH:$PWD/depot_tools"
 mkdir shaka-packager
 cd shaka-packager
 # grab the fork that contains ULL work
-gclient config https://github.com/CaitlinOCallaghan/shaka-packager.git --name=src --unmanaged
+gclient config https://github.com/kevleyski/shaka-packager.git --name=src --unmanaged
 # checkout the main branch
 # NOTE: use "gclinet sync -r {commit_hash}" to checkout a specific commit or branch
 gclient sync
