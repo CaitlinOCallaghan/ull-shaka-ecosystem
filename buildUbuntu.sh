@@ -59,8 +59,8 @@ git checkout 793d1164921d6e42b4bec26686e76001995f218b
 cd ..
 
 # install go - a dependency for s3-upload-proxy
-wget https://golang.org/dl/go1.15.5.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.15.5.linux-amd64.tar.gz
+wget https://golang.org/dl/go1.15.5.linux-arm64.tar.gz
+sudo tar -C /usr/local -xzf go1.15.5.linux-arm64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 sudo install -m 755 /usr/local/go/bin/go  /usr/local/bin/go
 go version
