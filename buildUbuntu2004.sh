@@ -1,5 +1,15 @@
 #!/bin/bash
 
+ARCH=$(uname -m)
+
+GOLANG_ARCH=amd64
+SHAKA_PACKAGER_SOURCE="CaitlinOCallaghan"
+if [[ $ARCH == "aarch64" ]]; then
+  GYP_DEFINES="clang=0 use_allocator=none"
+  GOLANG_ARCH=arm64
+  SHAKA_PACKAGER_SOURCE="kevleyski" # TODO: KJSL: waiting on write access to Caitlinks shaka packager
+fi
+
 # Server build script for Ubuntu 20.04
 
 sudo apt -y update
@@ -38,11 +48,9 @@ git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 export PATH="$PATH:$PWD/depot_tools"
 mkdir shaka-packager
 cd shaka-packager
-
-# Grab shaka-packager fork  the fork that contains ULL work
-gclient config https://github.com/CaitlinOCallaghan/shaka-packager.git --name=src --unmanaged
-
-# Checkout the main branch
+# grab the fork that contains ULL work
+gclient config "https://github.com/$SHAKA_PACKAGER_SOURCE/shaka-packager.git" --name=src --unmanaged
+# checkout the main branch
 # NOTE: use "gclinet sync -r {commit_hash}" to checkout a specific commit or branch
 gclient sync
 cd src
