@@ -63,7 +63,7 @@ RUN set -x \
     && export PATH="$PATH:/root/ull-shaka-ecosystem/depot_tools" \
     && mkdir -p /root/ull-shaka-ecosystem/shaka-packager \
     && cd /root/ull-shaka-ecosystem/shaka-packager \
-    && gclient config https://github.com/CaitlinOCallaghan/shaka-packager.git --name=src --unmanaged \
+    && gclient config https://github.com/kevleyski/shaka-packager.git --name=src --unmanaged \
     && gclient sync
 
 RUN set -x \
