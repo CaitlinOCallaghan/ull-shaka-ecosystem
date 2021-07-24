@@ -1,5 +1,15 @@
 #!/bin/bash
 
+ARCH=$(uname -m)
+
+GOLANG_ARCH=amd64
+SHAKA_PACKAGER_SOURCE="CaitlinOCallaghan"
+if [[ $ARCH == "aarch64" ]]; then
+  GYP_DEFINES="clang=0 use_allocator=none"
+  GOLANG_ARCH=arm64
+  SHAKA_PACKAGER_SOURCE="kevleyski" # TODO: KJSL: waiting on write access to Caitlinks shaka packager
+fi
+
 # Server build script for Ubuntu 20.04
 
 sudo apt-get -y update

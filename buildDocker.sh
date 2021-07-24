@@ -1,22 +1,45 @@
 #!/bin/bash
 
+# Default build for same as local host
+ARCH=$(uname -m)
+
+# comment/uncomment this wanting to build ARM64 on Intel
+ARCH=aarch64
+#ARCH=x86_64
+
 # http://127.0.0.1:PORT/testpattern/dash.mpd
 PORT=80
 
 HERE=$PWD
 
-IMAGE_STATE=$(docker images -q shaka_builder:latest 2> /dev/null)
+if [[ $ARCH == "aarch64" ]]; then
+  # arm64
+  IMAGE_STATE=$(docker images -q shaka_builder_arm:latest 2> /dev/null)
 
-create_docker_image () {
-  if [[ "$IMAGE_STATE" == "" ]]; then
-    echo "Building"
-    docker build -t shaka_builder .
-  fi
-}
+  create_docker_image () {
+    if [[ "$IMAGE_STATE" == "" ]]; then
+      echo "Building"
+        docker buildx build --platform linux/arm64 -t shaka_builder_arm .
+    fi
+  }
 
-run_docker_container () {
-  docker run --rm -it -p $PORT:80/tcp -v "$(pwd):/host" shaka_builder bash -c "/bin/bash"
-}
+  run_docker_container () {
+    docker run --rm -it -p $PORT:80/tcp -v "$(pwd):/host" shaka_builder_arm bash -c "/bin/bash"
+  }
+else
+  # x86_64
+  IMAGE_STATE=$(docker images -q shaka_builder:latest 2> /dev/null)
+
+  create_docker_image () {
+    if [[ "$IMAGE_STATE" == "" ]]; then
+      docker build -t shaka_builder .
+    fi
+  }
+
+  run_docker_container () {
+    docker run --rm -it -p $PORT:80/tcp -v "$(pwd):/host" shaka_builder bash -c "/bin/bash"
+  }
+fi
 
 create_docker_image
 run_docker_container
