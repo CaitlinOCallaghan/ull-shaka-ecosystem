@@ -1,11 +1,7 @@
 #!/bin/bash
 
-# Default build for same as local host
-ARCH=$(uname -m)
-
 # comment/uncomment this wanting to build ARM64 on Intel
-ARCH=aarch64
-#ARCH=x86_64
+#ARCH=aarch64
 
 # http://127.0.0.1:PORT/testpattern/dash.mpd
 PORT=80
@@ -15,17 +11,25 @@ HERE=$PWD
 if [[ $ARCH == "aarch64" ]]; then
   # arm64
   IMAGE_STATE=$(docker images -q shaka_builder_arm:latest 2> /dev/null)
+  HOST_ARCH=$(uname -m)
 
-  create_docker_image () {
-    if [[ "$IMAGE_STATE" == "" ]]; then
-      echo "Building"
-        docker buildx build --platform linux/arm64 -t shaka_builder_arm .
-    fi
-  }
+  # build for arm copy files for native
+  if [[ HOST_ARCH == "x86_64" ]]; then
 
-  run_docker_container () {
-    docker run --rm -it -p $PORT:80/tcp -v "$(pwd):/host" shaka_builder_arm bash -c "/bin/bash"
-  }
+    export GYP_DEFINES="clang=0 use_allocator=none"
+
+    create_docker_image () {
+      if [[ "$IMAGE_STATE" == "" ]]; then
+        echo "Building"
+          docker buildx build --platform linux/arm64 -t shaka_builder_arm .
+      fi
+    }
+
+    run_docker_container () {
+      # copy for native deploy to Jetson
+      docker run --platform linux/arm64 --rm -it -v "$(pwd):/host" shaka_builder_arm bash -c "cp /root/ull-shaka-ecosystem /host && chown $(id -u):$(id -g) /host/*"
+    }
+  fi
 else
   # x86_64
   IMAGE_STATE=$(docker images -q shaka_builder:latest 2> /dev/null)
