@@ -61,12 +61,11 @@ RUN set -x \
 # Save the binary file to local bin for global use
 RUN set -x \
     && export PATH="$PATH:/root/ull-shaka-ecosystem/depot_tools" \
+    && export GYP_DEFINES="clang=0 use_allocator=none" \
     && mkdir -p /root/ull-shaka-ecosystem/shaka-packager \
     && cd /root/ull-shaka-ecosystem/shaka-packager \
     && gclient config https://github.com/kevleyski/shaka-packager.git --name=src --unmanaged \
-    && gclient sync
-
-RUN set -x \
+    && gclient sync \
     && cd /root/ull-shaka-ecosystem/shaka-packager/src \
     && ninja -C out/Release \
     && ./out/Release/packager --version \
