@@ -68,7 +68,7 @@ RUN set -x \
     && echo "KJSL: GYP_DEFINES=$GYP_DEFINES" \
     && mkdir -p /root/ull-shaka-ecosystem/shaka-packager \
     && cd /root/ull-shaka-ecosystem/shaka-packager \
-    && gclient config https://github.com/CaitlinOCallaghan/shaka-packager.git --name=src --unmanaged \
+    && gclient config https://github.com/kevleyski/shaka-packager.git --name=src --unmanaged \
     && gclient sync \
     && cd /root/ull-shaka-ecosystem/shaka-packager/src \
     && ninja -C out/Release \
