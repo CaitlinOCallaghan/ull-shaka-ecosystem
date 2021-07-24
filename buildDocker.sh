@@ -15,13 +15,10 @@ if [[ $ARCH == "aarch64" ]] && [[ $HOST_ARCH != "aarch64" ]]; then
   # arm64 cross compile
   #IMAGE_STATE=$(docker images -q shaka_builder_arm:latest 2> /dev/null)
 
-  # build for arm copy files for native
-  export GYP_DEFINES="clang=0 use_allocator=none"
-
   create_docker_image () {
     if [[ "$IMAGE_STATE" == "" ]]; then
       echo "Building"
-        docker buildx build --platform linux/arm64 --build-arg PASS_GYP_DEFINES="clang=0 use_allocator=none" -t shaka_builder_arm .
+        docker buildx build --platform linux/arm64 --build-arg PASS_GENERATE_YOUR_PROJECT_DEFINES="clang=0 use_allocator=none" -t shaka_builder_arm .
     fi
   }
 

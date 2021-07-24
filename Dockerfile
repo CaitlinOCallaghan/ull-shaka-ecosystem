@@ -53,8 +53,8 @@ RUN set -x \
     && chmod 755 -R /var/www/ \
     && if [ ! -d "depot_tools" ]; then git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git depot_tools; fi
 
-ARG PASS_GYP_DEFINES
-ENV GYP_DEFINES="$PASS_GYP_DEFINES"
+ARG PASS_GENERATE_YOUR_PROJECT_DEFINES
+ENV GYP_DEFINES="$PASS_GENERATE_YOUR_PROJECT_DEFINES"
 
 # Shaka Packager with HTTP upload
 # Grab shaka-packager fork  the fork that contains ULL work
@@ -64,7 +64,7 @@ ENV GYP_DEFINES="$PASS_GYP_DEFINES"
 # Save the binary file to local bin for global use
 RUN set -x \
     && export PATH="$PATH:/root/ull-shaka-ecosystem/depot_tools" \
-    && export GYP_DEFINES="$PASS_GYP_DEFINES" \
+    && export GYP_DEFINES="$PASS_GENERATE_YOUR_PROJECT_DEFINES" \
     && echo "KJSL: GYP_DEFINES=$GYP_DEFINES" \
     && mkdir -p /root/ull-shaka-ecosystem/shaka-packager \
     && cd /root/ull-shaka-ecosystem/shaka-packager \
