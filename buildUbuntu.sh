@@ -73,7 +73,7 @@ cd ..
 
 # install go - a dependency for s3-upload-proxy
 wget "https://golang.org/dl/go1.15.5.linux-$GOLANG_ARCH.tar.gz"
-sudo tar -C /usr/local -xzf "go1.15.5.linux-GOLANG_ARCH.tar.gz"
+sudo tar -C /usr/local -xzf "go1.15.5.linux-$GOLANG_ARCH.tar.gz"
 export PATH=$PATH:/usr/local/go/bin
 sudo install -m 755 /usr/local/go/bin/go  /usr/local/bin/go
 go version
