@@ -1,15 +1,11 @@
 #!/bin/bash
 
-export ARCH=$(uname -m)
-
 export GOLANG_ARCH=amd64
 export SHAKA_PACKAGER_SOURCE="CaitlinOCallaghan"
-if [[ $ARCH == "aarch64" ]]; then
-  export GYP_DEFINES="clang=0 use_allocator=none"
-  export GOLANG_ARCH=arm64
-fi
+export GYP_DEFINES="clang=0 use_allocator=none"
+export GOLANG_ARCH=arm64
 
-# Server build script
+# Server build script for ARM
 # Includes Shaka Packager supporting LL-DASH
 
 sudo apt-get -y update
@@ -21,7 +17,6 @@ sudo apt-get -y install \
   build-essential \
   cmake \
   curl \
-  ffmpeg \
   git \
   libncurses5 \
   libnginx-mod-http-dav-ext \
@@ -41,7 +36,7 @@ sudo apt-get -y install \
 sudo chown -R "$USER" /var/www/
 sudo chmod 755 -R /var/www/
 
-# Shaka Packager with HTTP upload
+# Shaka Packager with LL-DASH and ARM support
 git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 export PATH="$PATH:$PWD/depot_tools"
 mkdir shaka-packager
