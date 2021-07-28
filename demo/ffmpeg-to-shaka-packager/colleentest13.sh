@@ -3,7 +3,7 @@
 PORT=8080
 # create a unique directory
 # OUTPUT_DIR=$(date '+%m-%d-%y-%T')
-OUTPUT_DIR='ldash/shit'
+OUTPUT_DIR='ldash/21'
 OUTPUT_SEG_NAME='test_pattern_live_video'
 
 [ -e pipe0 ] && rm pipe0
@@ -29,7 +29,7 @@ ffmpeg \
 
 # package as DASH
 /home/cocallaghan/Workspace/ull-shaka-ecosystem/shaka-packager/src/out/Release/packager \
-   --v=2 \
+   --v=0 \
    --io_block_size 65536 \
    --nogenerate_sidx_in_media_segments \
    in=pipe0,stream=video,init_segment='http://127.0.0.1:8080/'${OUTPUT_DIR}'/'${OUTPUT_SEG_NAME}'_init.m4s',segment_template='http://127.0.0.1:8080/'${OUTPUT_DIR}'/'${OUTPUT_SEG_NAME}'_$Number$.m4s' \
@@ -41,6 +41,7 @@ ffmpeg \
    --min_buffer_time 10.0 \
    --allow_approximate_segment_timeline=true \
    --is_low_latency_dash=true \
+   --utc_timings "urn:mpeg:dash:utc:http-xsdate:2014"="https://time.akamai.com/?iso" \
    --mpd_output "http://127.0.0.1:8080/${OUTPUT_DIR}/manifest.mpd" \
     >& log.log
    
