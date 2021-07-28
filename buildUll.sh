@@ -1,12 +1,12 @@
 #!/bin/bash
 
-ARCH=$(uname -m)
+export ARCH=$(uname -m)
 
-GOLANG_ARCH=amd64
-SHAKA_PACKAGER_SOURCE="CaitlinOCallaghan"
+export GOLANG_ARCH=amd64
+export SHAKA_PACKAGER_SOURCE="CaitlinOCallaghan"
 if [[ $ARCH == "aarch64" ]]; then
-  GYP_DEFINES="clang=0 use_allocator=none"
-  GOLANG_ARCH=arm64
+  export GYP_DEFINES="clang=0 use_allocator=none"
+  export GOLANG_ARCH=arm64
 fi
 
 # Server build script
@@ -48,7 +48,7 @@ mkdir shaka-packager
 cd shaka-packager
 # grab the fork that contains ULL work
 gclient config "https://github.com/$SHAKA_PACKAGER_SOURCE/shaka-packager.git" --name=src --unmanaged
-# checkout the LL-DASH and ARM support  branch
+# checkout the LL-DASH and ARM support branch
 # NOTE: use "gclinet sync -r {commit_hash}" to checkout a specific commit or branch
 gclient sync -r a03b52894bccc149718a37a0a53d5b6e142cebc0
 cd src
