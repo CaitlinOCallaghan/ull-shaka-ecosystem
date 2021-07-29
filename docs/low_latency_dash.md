@@ -62,6 +62,10 @@ The local low latency server also hosts a local DASH.js player to view the strea
 http://127.0.0.1:8080/ldashplay/1234/manifest.mpd
 ```
 
+```
+http://{IP_ADDRESS}:{PORT}/ldashplay/{OUTPUT_DIR}/manifest.mpd
+```
+
 You can also change IP to hit the stream from a different machine.
 
 The waiting player will look like:
@@ -75,4 +79,8 @@ Click the 'load' button to load the manifest, and you are all set!
 If you wish to use a different player, use the following URL to access the manifest:
 ```
 http://127.0.0.1:8080/ldash/1234/manifest.mpd
+```
+
+```
+http://{IP_ADDRESS}:{PORT}/ldash/{OUTPUT_DIR}/manifest.mpd
 ```
