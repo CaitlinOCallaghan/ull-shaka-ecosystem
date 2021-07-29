@@ -27,7 +27,7 @@ cd demos
 ```
 
 ### Server
-The server supports low latency streaming by holding open file connections. The server will run locally on port 8080.
+The server supports low latency streaming by holding open file connections. The server will run locally on port 8080. The server is taken from [Streamline's low-latency-preview](https://github.com/streamlinevideo/low-latency-preview) project.
 
 ```
 cd server
@@ -76,7 +76,7 @@ Click the 'load' button to load the manifest, and you are all set!
 
 ![Image of low latency player](./images/LL-DASH-Player.png)
 
-If you wish to use a different player, use the following URL to access the manifest:
+If you wish to use a different player, like [this low latency Dash.js player](https://reference.dashif.org/dash.js/latest/samples/low-latency/index.html), use the following URL to access the manifest:
 ```
 http://127.0.0.1:8080/ldash/1234/manifest.mpd
 ```
