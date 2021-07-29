@@ -1,0 +1,6 @@
+# ignore dependencies
+depot_tools/
+low-latency-preview/
+s3-upload-proxy/
+shaka-packager/
+shaka-streamer/
