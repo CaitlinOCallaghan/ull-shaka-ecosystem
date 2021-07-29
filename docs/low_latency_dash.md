@@ -10,7 +10,7 @@ This tutorial shows the capabilities of the LL-DASH support feature written to S
 
 Make sure that your Shaka Packager is up-to-date with the low latency feature branch. 
 
-To install the current iteration of Shaka Packager, run the following from the main directory:
+To install the current iteration of Shaka Packager, run the following from the main ull-ecosystem directory:
 
 ```
 ./buildShakaPackager.sh
