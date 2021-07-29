@@ -5,6 +5,7 @@
 # Shaka Packager with LL-DASH and ARM support
 export SHAKA_PACKAGER_SOURCE="CaitlinOCallaghan"
 export SHAKA_PACKAGER_COMMIT="a03b52894bccc149718a37a0a53d5b6e142cebc0"
+export GYP_DEFINES="clang=0 use_allocator=none"
 
 export PATH="$PATH:$PWD/depot_tools"
 rm -rf shaka-packager
