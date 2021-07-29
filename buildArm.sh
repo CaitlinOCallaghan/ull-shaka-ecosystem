@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export GOLANG_ARCH=amd64
 export SHAKA_PACKAGER_SOURCE="CaitlinOCallaghan"
 export GYP_DEFINES="clang=0 use_allocator=none"
 export GOLANG_ARCH=arm64
@@ -73,3 +72,10 @@ export PATH=$PATH:/usr/local/go/bin
 sudo install -m 755 /usr/local/go/bin/go  /usr/local/bin/go
 go version
 
+# install low-latency-preview which contains a ULL server
+git clone https://github.com/CaitlinOCallaghan/low-latency-preview.git
+cd low-latency-preview
+# checkout branch containing ARM support
+git checkout arm-support
+./buildEncoderAndServerArm.sh
+cd ..
