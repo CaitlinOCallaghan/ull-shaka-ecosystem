@@ -3,7 +3,7 @@
 PORT=8080
 # create a unique directory
 # OUTPUT_DIR=$(date '+%m-%d-%y-%T')
-OUTPUT_DIR='ldash/21'
+OUTPUT_DIR='ldash/1234'
 OUTPUT_SEG_NAME='test_pattern_live_video'
 
 [ -e pipe0 ] && rm pipe0
