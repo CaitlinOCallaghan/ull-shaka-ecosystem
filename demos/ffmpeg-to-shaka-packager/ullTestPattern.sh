@@ -34,7 +34,6 @@ ffmpeg \
    --nogenerate_sidx_in_media_segments \
    in=pipe0,stream=video,init_segment='http://127.0.0.1:8080/'${OUTPUT_DIR}'/'${OUTPUT_SEG_NAME}'_init.m4s',segment_template='http://127.0.0.1:8080/'${OUTPUT_DIR}'/'${OUTPUT_SEG_NAME}'_$Number$.m4s' \
    --segment_duration 5 \
-   --fragment_duration  0.042 \
    --minimum_update_period 500 \
    --suggested_presentation_delay 5.0 \
    --time_shift_buffer_depth 25.0 \
