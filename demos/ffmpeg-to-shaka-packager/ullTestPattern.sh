@@ -28,7 +28,7 @@ ffmpeg \
     pipe: > pipe0 &
 
 # package as DASH
-packager \
+../../shaka-packager/src/out/Release/packager \
    --v=2 \
    --io_block_size 65536 \
    --nogenerate_sidx_in_media_segments \
