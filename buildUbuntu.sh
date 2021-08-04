@@ -1,13 +1,13 @@
 #!/bin/bash
 
-ARCH=$(uname -m)
+export ARCH=$(uname -m)
 
-GOLANG_ARCH=amd64
-SHAKA_PACKAGER_SOURCE="CaitlinOCallaghan"
-SHAKA_PACKAGER_COMMIT="45e92b4b9fdfdcb6842f891886d09f52ecb2ef73"
+export GOLANG_ARCH=amd64
+export SHAKA_PACKAGER_SOURCE="CaitlinOCallaghan"
+export SHAKA_PACKAGER_COMMIT="45e92b4b9fdfdcb6842f891886d09f52ecb2ef73"
 
 if [[ $ARCH == "aarch64" ]]; then
-  GOLANG_ARCH=arm64
+  export GOLANG_ARCH=arm64
 fi
 
 # Server build script for Ubuntu 20.04
@@ -21,7 +21,6 @@ sudo apt-get -y install \
   build-essential \
   cmake \
   curl \
-  ffmpeg \
   git \
   libncurses5 \
   libnginx-mod-http-dav-ext \
@@ -38,17 +37,21 @@ sudo apt-get -y install \
   tclsh \
   wget 
 
+if [[ $ARCH == "x86_64" ]]; then
+  sudo apt-get -y install ffmpeg
+fi
+
 sudo chown -R "$USER" /var/www/
 sudo chmod 755 -R /var/www/
 
-# Shaka Packager
+# Shaka Packager with LL-DASH support
 git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 export PATH="$PATH:$PWD/depot_tools"
 mkdir shaka-packager
 cd shaka-packager
 # grab the fork that contains ULL work
 gclient config "https://github.com/$SHAKA_PACKAGER_SOURCE/shaka-packager.git" --name=src --unmanaged
-# checkout the ULL branch
+# checkout the LL-DASH branch
 # NOTE: use "gclient sync -r {commit_hash}" to checkout a specific commit or branch
 # otherwise, use "gclient sync" to checkout the main branch
 gclient sync -r ${SHAKA_PACKAGER_COMMIT}
