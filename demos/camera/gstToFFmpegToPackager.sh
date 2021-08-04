@@ -34,7 +34,6 @@ ffmpeg \
     -g 300 \
     -keyint_min 300 \
     -b:v 4000k \
-    -vf "drawtext=fontfile=utils/OpenSans-Bold.ttf:box=1:fontcolor=black:boxcolor=white:fontsize=33':x=14:y=150:textfile=utils/text.txt" \
     -f mpegts \
     pipe: > pipe1 &
 
