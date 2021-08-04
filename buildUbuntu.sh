@@ -22,6 +22,7 @@ sudo apt-get -y install \
   cmake \
   curl \
   git \
+  htop \
   libncurses5 \
   libnginx-mod-http-dav-ext \
   libssl-dev \
@@ -35,6 +36,7 @@ sudo apt-get -y install \
   python \
   python3-pip \
   tclsh \
+  terminator \
   wget 
 
 if [[ $ARCH == "x86_64" ]]; then
