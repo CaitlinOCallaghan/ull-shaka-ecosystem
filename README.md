@@ -33,7 +33,7 @@ cd ull-shaka-ecosystem
 You may now run a test stream with a test pattern by running:
 
 ```console
-cd ~/ull-shaka-ecosystem/demo/live-shaka-streamer
+cd ~/ull-shaka-ecosystem/demos/live-shaka-streamer
 ./liveTestPattern.sh
 ```
 Your manifest will be available at http://127.0.0.1/testpattern/dash.mpd
@@ -57,7 +57,7 @@ cd ~/ull-shaka-ecosystem/test-content
 You may now run a test stream with the provided test content by running:
 
 ```console
-cd ~/ull-shaka-ecosystem/demo/live-shaka-streamer
+cd ~/ull-shaka-ecosystem/demos/live-shaka-streamer
 ./liveLoopedFile.sh
 ```
 Your manifest will be available at http://127.0.0.1/livelooped/dash.mpd
