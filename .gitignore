@@ -7,3 +7,7 @@ shaka-streamer/
 
 # virtual environment created while puring AWS MediaStore container
 demos/server/env/
+
+# any logging
+*logs/
+*.log

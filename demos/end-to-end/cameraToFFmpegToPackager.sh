@@ -38,6 +38,7 @@ trap_ctrlc() {
     pkill packager
 
     rm pipe0
+    rm pipe1
 
     echo "All processes have been killed ☠"
 }

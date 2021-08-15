@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PORT=8080
+IP_ADDRESS='127.0.0.1'
 # create a unique directory
 OUTPUT_DIR=$(date '+%m-%d-%y-%T')
 OUTPUT_SEG_NAME='test_pattern_live_video'
@@ -29,9 +30,9 @@ ffmpeg \
 # package as HLS
 packager \
    --io_block_size 65536 \
-   in=pipe0,stream=video,segment_template='http://0.0.0.0:'${PORT}'/'${OUTPUT_DIR}'/'${OUTPUT_SEG_NAME}'_$Number$.ts' \
+   in=pipe0,stream=video,segment_template='http://'${IP_ADDRESS}':'${PORT}'/'${OUTPUT_DIR}'/'${OUTPUT_SEG_NAME}'_$Number%05d$.ts' \
    --segment_duration 5 \
    --hls_playlist_type LIVE \
-   --hls_master_playlist_output "http://0.0.0.0:${PORT}/${OUTPUT_DIR}/playlist.m3u8"
+   --hls_master_playlist_output "http://${IP_ADDRESS}:${PORT}/${OUTPUT_DIR}/playlist.m3u8"
 
 rm pipe0
