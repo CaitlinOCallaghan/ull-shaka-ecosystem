@@ -74,8 +74,8 @@ sudo snap install google-cloud-sdk --classic
 git clone https://github.com/fsouza/s3-upload-proxy.git
 
 # install go - a dependency for s3-upload-proxy
-wget "https://golang.org/dl/go1.15.5.linux-$GOLANG_ARCH.tar.gz"
-sudo tar -C /usr/local -xzf "go1.15.5.linux-$GOLANG_ARCH.tar.gz"
+wget "https://golang.org/dl/go1.16.7.linux-$GOLANG_ARCH.tar.gz"
+sudo tar -C /usr/local -xzf "go1.16.7.linux-$GOLANG_ARCH.tar.gz"
 export PATH=$PATH:/usr/local/go/bin
 sudo install -m 755 /usr/local/go/bin/go  /usr/local/bin/go
 go version
