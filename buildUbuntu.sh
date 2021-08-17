@@ -72,10 +72,6 @@ sudo snap install google-cloud-sdk --classic
 
 # s3-upload-proxy for HTTP PUT to S3/MediaStore
 git clone https://github.com/fsouza/s3-upload-proxy.git
-cd s3-upload-proxy
-# checkout working commit - main does not work for mediastore
-git checkout 793d1164921d6e42b4bec26686e76001995f218b
-cd ..
 
 # install go - a dependency for s3-upload-proxy
 wget "https://golang.org/dl/go1.15.5.linux-$GOLANG_ARCH.tar.gz"
