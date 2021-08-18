@@ -34,7 +34,7 @@ packager \
    --nogenerate_sidx_in_media_segments \
    in=pipe0,stream=video,init_segment='http://'${IP_ADDRESS}':'${PORT}'/'${OUTPUT_DIR}'/'${OUTPUT_SEG_NAME}'_init.m4s',segment_template='http://'${IP_ADDRESS}':'${PORT}'/'${OUTPUT_DIR}'/'${OUTPUT_SEG_NAME}'_$Number%05d$.m4s' \
    --segment_duration 5 \
-   --is_low_latency_dash=true \
+   --low_latency_dash_mode=true \
    --utc_timings "urn:mpeg:dash:utc:http-xsdate:2014"="https://time.akamai.com/?iso" \
    --mpd_output "http://${IP_ADDRESS}:${PORT}/${OUTPUT_DIR}/manifest.mpd" \
     >& Packager.log

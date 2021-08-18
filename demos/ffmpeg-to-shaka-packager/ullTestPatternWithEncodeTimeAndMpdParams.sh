@@ -40,7 +40,7 @@ packager \
    --time_shift_buffer_depth 25.0 \
    --min_buffer_time 10.0 \
    --allow_approximate_segment_timeline=true \
-   --is_low_latency_dash=true \
+   --low_latency_dash_mode=true \
    --utc_timings "urn:mpeg:dash:utc:http-xsdate:2014"="https://time.akamai.com/?iso" \
    --mpd_output "http://127.0.0.1:8080/${OUTPUT_DIR}/manifest.mpd" \
     >& log.log

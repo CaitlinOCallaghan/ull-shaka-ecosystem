@@ -43,7 +43,7 @@ To kill the server, run:
 ```
 
 ### Shaka Packager Script
-The test script will generate a test pattern using FFMPEG and will pipe the stream to Shaka Packager. Shaka Packager, which has the `-is_low_latency_dash` flag enabled, will stream the content using LL-DASH mode to the listening server. 
+The test script will generate a test pattern using FFMPEG and will pipe the stream to Shaka Packager. Shaka Packager, which has the `-low_latency_dash_mode` flag enabled, will stream the content using LL-DASH mode to the listening server. 
 
 Please note that the script contains an output directory. The directory default name is '1234'; however, you can edit this as you please. In fact, it is encouraged for you to change the directory before launching a new stream to avoid caching. 
 
