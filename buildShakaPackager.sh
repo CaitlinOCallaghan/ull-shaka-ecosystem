@@ -5,7 +5,7 @@
 
 # Shaka Packager with LL-DASH
 export SHAKA_PACKAGER_SOURCE="CaitlinOCallaghan"
-export SHAKA_PACKAGER_COMMIT="45e92b4b9fdfdcb6842f891886d09f52ecb2ef73"
+export SHAKA_PACKAGER_COMMIT="5eda83ee491acb992de6f138ecf621370717ca73"
 
 export PATH="$PATH:$PWD/depot_tools"
 rm -rf shaka-packager
