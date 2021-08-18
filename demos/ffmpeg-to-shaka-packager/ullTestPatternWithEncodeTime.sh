@@ -9,6 +9,8 @@ IP_ADDRESS='127.0.0.1'
 OUTPUT_DIR='ldash/1234'
 OUTPUT_SEG_NAME='test_pattern_live_ull_video'
 
+export UTILS_DIR="${PWD}/../utils"
+
 [ -e pipe0 ] && rm pipe0
 mkfifo pipe0
 
@@ -26,7 +28,7 @@ ffmpeg \
     -g 300 \
     -keyint_min 300 \
     -b:v 4000k \
-    -vf "drawtext=fontfile=utils/OpenSans-Bold.ttf:box=1:fontcolor=black:boxcolor=white:fontsize=33':x=14:y=150:textfile=utils/text.txt" \
+    -vf "drawtext=fontfile=${UTILS_DIR}/OpenSans-Bold.ttf:box=1:fontcolor=black:boxcolor=white:fontsize=33':x=14:y=150:textfile=${UTILS_DIR}/text.txt" \
     -f mpegts \
     pipe: > pipe0 &
 
