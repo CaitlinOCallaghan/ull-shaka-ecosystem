@@ -36,6 +36,7 @@ packager \
    --segment_duration 5 \
    --is_low_latency_dash=true \
    --utc_timings "urn:mpeg:dash:utc:http-xsdate:2014"="https://time.akamai.com/?iso" \
+   --mpd_output "http://${IP_ADDRESS}:${PORT}/${OUTPUT_DIR}/manifest.mpd" \
     >& Packager.log
    
 rm pipe0
