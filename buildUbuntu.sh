@@ -5,9 +5,11 @@ export ARCH=$(uname -m)
 export GOLANG_ARCH=amd64
 export SHAKA_PACKAGER_SOURCE="CaitlinOCallaghan"
 export SHAKA_PACKAGER_COMMIT="5eda83ee491acb992de6f138ecf621370717ca73"
+export SHAKA_PACKAGER_BINARY="v2_packagerX861804.tar.gz"
 
 if [[ $ARCH == "aarch64" ]]; then
   export GOLANG_ARCH=arm64
+  export SHAKA_PACKAGER_BINARY="v2_packagerArm1804.tar.gz"
 fi
 
 # Server build script for Ubuntu 20.04
@@ -46,25 +48,9 @@ fi
 sudo chown -R "$USER" /var/www/
 sudo chmod 755 -R /var/www/
 
-# Shaka Packager with LL-DASH support
-git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
-export PATH="$PATH:$PWD/depot_tools"
-mkdir shaka-packager
-cd shaka-packager
-# grab the fork that contains ULL work
-gclient config "https://github.com/$SHAKA_PACKAGER_SOURCE/shaka-packager.git" --name=src --unmanaged
-# checkout the LL-DASH branch
-# NOTE: use "gclient sync -r {commit_hash}" to checkout a specific commit or branch
-# otherwise, use "gclient sync" to checkout the main branch
-gclient sync -r ${SHAKA_PACKAGER_COMMIT}
-cd src
-# build shaka packager
-ninja -C out/Release
-# verify the build
-./out/Release/packager --version
-# save the binary file to local bin for global use
-sudo install -m 755 ./out/Release/packager  /usr/local/bin/packager
-cd ../..
+# Shaka Packager
+wget wget "https://github.com/CaitlinOCallaghan/ull-shaka-ecosystem/releases/download/v2/${SHAKA_PACKAGER_BINARY}"
+sudo tar -C /usr/local/bin -xzf "${SHAKA_PACKAGER_BINARY}" 
 
 # Shaka Streamer
 git clone https://github.com/CaitlinOCallaghan/shaka-streamer.git
