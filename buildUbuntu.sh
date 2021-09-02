@@ -51,13 +51,11 @@ sudo chmod 755 -R /var/www/
 # Shaka Packager
 wget wget "https://github.com/CaitlinOCallaghan/ull-shaka-ecosystem/releases/download/v2/${SHAKA_PACKAGER_BINARY}"
 sudo tar -C /usr/local/bin -xzf "${SHAKA_PACKAGER_BINARY}" 
+sudo install -m 755 ./packager /usr/local/bin/packager
 
 # Shaka Streamer
 git clone https://github.com/CaitlinOCallaghan/shaka-streamer.git
 sudo snap install google-cloud-sdk --classic
-
-# s3-upload-proxy for HTTP PUT to S3/MediaStore
-git clone https://github.com/fsouza/s3-upload-proxy.git
 
 # install go - a dependency for s3-upload-proxy
 wget "https://golang.org/dl/go1.16.7.linux-$GOLANG_ARCH.tar.gz"
@@ -65,6 +63,13 @@ sudo tar -C /usr/local -xzf "go1.16.7.linux-$GOLANG_ARCH.tar.gz"
 export PATH=$PATH:/usr/local/go/bin
 sudo install -m 755 /usr/local/go/bin/go  /usr/local/bin/go
 go version
+
+# s3-upload-proxy for HTTP PUT to S3/MediaStore
+git clone https://github.com/fsouza/s3-upload-proxy.git
+cd s3-upload-proxy
+go build -o s3-upload-proxy
+sudo install -m 755 ./s3-upload-proxy /usr/local/bin/s3-upload-proxy
+cd ..
 
 # install low-latency-preview which contains a ULL server
 git clone https://github.com/CaitlinOCallaghan/low-latency-preview.git
